@@ -1,2 +1,514 @@
 # ECE-engineering-
 Helping to ECE engineering student 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ECE Engineering Student Helper</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+  /* Reset and base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: #f7f9fc;
+    color: #222;
+    line-height: 1.6;
+  }
+
+  /* Navbar */
+  nav {
+    position: sticky;
+    top: 0;
+    background: #003366;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+  nav a:hover, nav a.active {
+    background: #0059b3;
+  }
+
+  /* Container */
+  .container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px 15px 60px 15px;
+  }
+
+  /* Section Titles */
+  h1, h2 {
+    color: #003366;
+  }
+  h1 {
+    margin-bottom: 0.3em;
+  }
+  section {
+    margin-bottom: 50px;
+  }
+
+  /* Home Section */
+  #home {
+    text-align: center;
+    padding: 60px 0 40px 0;
+    background: linear-gradient(135deg, #0059b3, #007acc);
+    color: white;
+    border-radius: 10px;
+  }
+  #home h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.2em;
+  }
+  #home p {
+    font-size: 1.2rem;
+  }
+
+  /* Study Materials & Tutorials */
+  .materials-list, .problems-list, .projects-list {
+    list-style: square inside;
+    padding-left: 0;
+  }
+  .materials-list li, .problems-list li, .projects-list li {
+    margin-bottom: 8px;
+  }
+  .materials-list a, .problems-list a, .projects-list a {
+    text-decoration: none;
+    color: #007acc;
+  }
+  .materials-list a:hover, .problems-list a:hover, .projects-list a:hover {
+    text-decoration: underline;
+  }
+
+  /* Collapsible */
+  .collapsible {
+    background-color: #007acc;
+    color: white;
+    cursor: pointer;
+    padding: 12px 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    margin: 10px 0 4px 0;
+    user-select: none;
+  }
+  .active, .collapsible:hover {
+    background-color: #0059b3;
+  }
+  .content {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background-color: #e9f0fc;
+    border-radius: 0 0 6px 6px;
+  }
+  .content p, .content ul {
+    margin: 10px 0;
+  }
+
+  /* Calculators */
+  .calculator {
+    background: #e9f0fc;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: inset 0 0 15px #c6d8ff;
+    max-width: 400px;
+    margin-bottom: 20px;
+  }
+  .calculator h3 {
+    margin-top: 0;
+    color: #003366;
+  }
+  .calculator label {
+    display: block;
+    margin: 10px 0 5px 0;
+    font-weight: 600;
+  }
+  .calculator input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+  }
+  .calculator button {
+    margin-top: 12px;
+    background-color: #0059b3;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+  }
+  .calculator button:hover {
+    background-color: #003d7a;
+  }
+  .calc-result {
+    margin-top: 12px;
+    font-weight: bold;
+    color: #003366;
+  }
+
+  /* Quiz */
+  #quiz-section {
+    max-width: 600px;
+    background: #e9f0fc;
+    border-radius: 10px;
+    box-shadow: 0 0 12px #c6d8ff;
+    padding: 20px;
+  }
+  #quiz-section h3 {
+    margin-top: 0;
+    color: #003366;
+  }
+  .question {
+    margin-bottom: 15px;
+  }
+  .question p {
+    font-weight: 600;
+  }
+  .answers label {
+    display: block;
+    margin: 6px 0;
+    cursor: pointer;
+  }
+  #submit-quiz-btn {
+    background-color: #0059b3;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background 0.3s ease;
+  }
+  #submit-quiz-btn:hover {
+    background-color: #003d7a;
+  }
+  #quiz-result {
+    margin-top: 20px;
+    font-weight: 700;
+    color: #003366;
+  }
+
+  /* News & Updates */
+  .news-item {
+    background: white;
+    padding: 15px 18px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #d7e3f7;
+  }
+  .news-item h4 {
+    margin: 0 0 6px 0;
+    color: #0059b3;
+  }
+  .news-item p {
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    nav {
+      flex-wrap: wrap;
+    }
+    nav a {
+      margin: 8px 6px;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#home" class="active">Home</a>
+  <a href="#materials">Study Materials</a>
+  <a href="#problems">Solved Problems</a>
+  <a href="#projects">Project Ideas</a>
+  <a href="#calculators">Calculators</a>
+  <a href="#quiz">Quiz</a>
+  <a href="#news">News & Updates</a>
+</nav>
+
+<div class="container">
+
+  <section id="home" tabindex="-1">
+    <h1>Welcome to ECE Engineering Student Helper</h1>
+    <p>Your all-in-one platform for study materials, tutorials, projects, quizzes, calculators, and news tailored for electronics and communication engineering students.</p>
+  </section>
+
+  <section id="materials" tabindex="-1">
+    <h2>Study Materials & Tutorials</h2>
+    <button class="collapsible">Fundamentals of Electronics</button>
+    <div class="content">
+      <p>Comprehensive notes and tutorials on basic electronics concepts including circuits, devices, and semiconductor physics.</p>
+      <ul class="materials-list">
+        <li><a href="https://www.electronics-tutorials.ws/" target="_blank" rel="noopener">Electronics Tutorials</a></li>
+        <li><a href="https://nptel.ac.in/courses/108/105/108105091/" target="_blank" rel="noopener">NPTEL - Basic Electronics</a></li>
+        <li><a href="https://www.allaboutcircuits.com/textbook/" target="_blank" rel="noopener">All About Circuits - Textbook</a></li>
+      </ul>
+    </div>
+
+    <button class="collapsible">Digital Communication</button>
+    <div class="content">
+      <p>Introduction to digital communication systems, theory, protocols, and signal processing.</p>
+      <ul class="materials-list">
+        <li><a href="https://www.tutorialspoint.com/digital_communication/index.htm" target="_blank" rel="noopener">TutorialsPoint - Digital Communication</a></li>
+        <li><a href="https://ece.northeastern.edu/sites/ece-admin/files/downloads/educational-content/Digital-Communication.pdf" target="_blank" rel="noopener">Lecture Slides - Northeastern Univ.</a></li>
+      </ul>
+    </div>
+
+    <button class="collapsible">Microcontrollers & Embedded Systems</button>
+    <div class="content">
+      <p>Guides and tutorials on microcontroller programming and embedded system design.</p>
+      <ul class="materials-list">
+        <li><a href="https://www.embedded.com/introduction-to-microcontrollers/" target="_blank" rel="noopener">Embedded.com Tutorials</a></li>
+        <li><a href="https://www.nxp.com/docs/en/user-guide/UM10512.pdf" target="_blank" rel="noopener">NXP Microcontroller User Guide</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="problems" tabindex="-1">
+    <h2>Solved Problems</h2>
+
+    <button class="collapsible">Circuit Analysis</button>
+    <div class="content">
+      <p>Example problems with step-by-step solutions on resistor networks, Thevenin sources, transient response, and more.</p>
+      <ul class="problems-list">
+        <li><a href="https://www.electronics-tutorials.ws/dccircuits/dcp_2.html" target="_blank" rel="noopener">DC Circuit Examples</a></li>
+        <li><a href="https://nptel.ac.in/content/storage2/courses/108104025/pdf/unit2/unit2lec7.pdf" target="_blank" rel="noopener">NPTEL Thevenin & Norton Theorems</a></li>
+      </ul>
+    </div>
+
+    <button class="collapsible">Signal Processing</button>
+    <div class="content">
+      <p>Worked examples of signals, Fourier transforms, filtering, and sampling.</p>
+      <ul class="problems-list">
+        <li><a href="https://www.electronics-tutorials.ws/filter/filter_1.html" target="_blank" rel="noopener">Filters Tutorials</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="projects" tabindex="-1">
+    <h2>Project Ideas</h2>
+    <ul class="projects-list">
+      <li><strong>Smart Home Automation System:</strong> Control home appliances remotely using microcontrollers and IoT.</li>
+      <li><strong>Wireless Power Transfer:</strong> Build a setup to wirelessly transmit energy between coils.</li>
+      <li><strong>FM Transmitter:</strong> Design and build a low-power FM transmitter circuit.</li>
+      <li><strong>Digital Thermometer with LCD Display:</strong> Using microcontroller and temperature sensors.</li>
+      <li><strong>Heart Rate Monitor:</strong> Create a wearable heart rate measuring device using optical sensors.</li>
+    </ul>
+  </section>
+
+  <section id="calculators" tabindex="-1">
+    <h2>Calculators & Simulators</h2>
+
+    <div class="calculator" id="ohms-law-calculator">
+      <h3>Ohm's Law Calculator</h3>
+      <label for="voltage">Voltage (V):</label>
+      <input type="number" id="voltage" placeholder="Enter voltage in volts" />
+      <label for="current">Current (I):</label>
+      <input type="number" id="current" placeholder="Enter current in amperes" />
+      <label for="resistance">Resistance (R):</label>
+      <input type="number" id="resistance" placeholder="Enter resistance in ohms" />
+      <button id="calculate-ohms">Calculate Missing</button>
+      <div class="calc-result" id="ohms-result"></div>
+    </div>
+
+    <div class="calculator" id="frequency-calculator">
+      <h3>Frequency Calculator</h3>
+      <label for="period">Period (T) in seconds:</label>
+      <input type="number" id="period" placeholder="Enter period" />
+      <button id="calculate-frequency">Calculate Frequency</button>
+      <div class="calc-result" id="freq-result"></div>
+    </div>
+
+  </section>
+
+  <section id="quiz" tabindex="-1">
+    <h2>Quiz</h2>
+    <div id="quiz-section">
+      <h3>Test Your Knowledge</h3>
+      <form id="quiz-form">
+        <div class="question" id="q1">
+          <p>1. What is the unit of electrical resistance?</p>
+          <div class="answers">
+            <label><input type="radio" name="q1" value="a" /> Ohm (Ω)</label>
+            <label><input type="radio" name="q1" value="b" /> Ampere (A)</label>
+            <label><input type="radio" name="q1" value="c" /> Volt (V)</label>
+          </div>
+        </div>
+        <div class="question" id="q2">
+          <p>2. The digital modulation technique used in Wi-Fi is:</p>
+          <div class="answers">
+            <label><input type="radio" name="q2" value="a" /> QAM</label>
+            <label><input type="radio" name="q2" value="b" /> AM</label>
+            <label><input type="radio" name="q2" value="c" /> FM</label>
+          </div>
+        </div>
+        <div class="question" id="q3">
+          <p>3. The formula for capacitance is:</p>
+          <div class="answers">
+            <label><input type="radio" name="q3" value="a" /> C = Q/V</label>
+            <label><input type="radio" name="q3" value="b" /> C = V/Q</label>
+            <label><input type="radio" name="q3" value="c" /> C = I × R</label>
+          </div>
+        </div>
+        <button type="submit" id="submit-quiz-btn">Submit Quiz</button>
+      </form>
+      <div id="quiz-result"></div>
+    </div>
+  </section>
+
+  <section id="news" tabindex="-1">
+    <h2>News & Updates</h2>
+    <div class="news-item">
+      <h4>Latest IEEE ECE Conference Announced</h4>
+      <p>Join the upcoming IEEE conference focusing on advances in communication systems, scheduled for November 2024.</p>
+    </div>
+    <div class="news-item">
+      <h4>New Microcontroller Release from Texas Instruments</h4>
+      <p>The TI MSP430 series introduces new low-power features ideal for embedded projects.</p>
+    </div>
+    <div class="news-item">
+      <h4>Online ECE Workshop: Signal Processing Basics</h4>
+      <p>Register for the free workshop on signal processing fundamentals starting next month.</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // Smooth scroll for navbar links and active link highlight
+  document.querySelectorAll('nav a').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      this.classList.add('active');
+      const section = document.querySelector(this.getAttribute('href'));
+      if(section) {
+        section.focus();
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Collapsible sections
+  const collapsibles = document.querySelectorAll(".collapsible");
+  collapsibles.forEach(btn => {
+    btn.addEventListener("click", function() {
+      this.classList.toggle("active");
+      const content = this.nextElementSibling;
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    });
+  });
+
+  // Ohm's Law Calculator
+  function calculateOhmsLaw() {
+    const V = parseFloat(document.getElementById('voltage').value);
+    const I = parseFloat(document.getElementById('current').value);
+    const R = parseFloat(document.getElementById('resistance').value);
+
+    let resultText = "";
+    let countFilled = [!isNaN(V), !isNaN(I), !isNaN(R)].filter(Boolean).length;
+
+    if(countFilled < 2) {
+      resultText = "Please enter any two values to calculate the missing one.";
+    } else {
+      if(isNaN(V)) {
+        // V = I * R
+        if(!isNaN(I) && !isNaN(R)) {
+          resultText = `Voltage (V) = I × R = ${I.toFixed(2)} × ${R.toFixed(2)} = ${(I*R).toFixed(2)} V`;
+        } else {
+          resultText = "Insufficient data to calculate Voltage.";
+        }
+      } else if(isNaN(I)) {
+        // I = V / R
+        if(!isNaN(V) && !isNaN(R) && R !== 0) {
+          resultText = `Current (I) = V / R = ${V.toFixed(2)} / ${R.toFixed(2)} = ${(V/R).toFixed(2)} A`;
+        } else {
+          resultText = "Insufficient data to calculate Current or division by zero.";
+        }
+      } else if(isNaN(R)) {
+        // R = V / I
+        if(!isNaN(V) && !isNaN(I) && I !== 0) {
+          resultText = `Resistance (R) = V / I = ${V.toFixed(2)} / ${I.toFixed(2)} = ${(V/I).toFixed(2)} Ω`;
+        } else {
+          resultText = "Insufficient data to calculate Resistance or division by zero.";
+        }
+      } else {
+        resultText = "Please leave one value empty to calculate it.";
+      }
+    }
+    document.getElementById('ohms-result').innerText = resultText;
+  }
+  document.getElementById('calculate-ohms').addEventListener('click', calculateOhmsLaw);
+
+  // Frequency Calculator
+  function calculateFrequency() {
+    const T = parseFloat(document.getElementById('period').value);
+    let resultText = "";
+    if(isNaN(T) || T <= 0) {
+      resultText = "Please enter a valid positive value for period (T).";
+    } else {
+      const f = 1 / T;
+      resultText = `Frequency (f) = 1 / T = 1 / ${T.toFixed(4)} = ${f.toFixed(4)} Hz`;
+    }
+    document.getElementById('freq-result').innerText = resultText;
+  }
+  document.getElementById('calculate-frequency').addEventListener('click', calculateFrequency);
+
+  // Quiz functionality
+  const quizForm = document.getElementById('quiz-form');
+  const quizResult = document.getElementById('quiz-result');
+
+  const correctAnswers = {
+    q1: 'a',
+    q2: 'a',
+    q3: 'a'
+  };
+
+  quizForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    let score = 0;
+    const formData = new FormData(quizForm);
+    for(const [question, correctAnswer] of Object.entries(correctAnswers)) {
+      if(formData.get(question) === correctAnswer) {
+        score++;
+      }
+    }
+    const total = Object.keys(correctAnswers).length;
+    quizResult.textContent = `Your score: ${score} / ${total}. ${score === total ? 'Excellent!' : score >= total/2 ? 'Good job!' : 'Keep practicing!'}`;
+  });
+</script>
+
+</body>
+</html>
+
